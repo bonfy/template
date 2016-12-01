@@ -1,0 +1,33 @@
+__pycache__/
+*.pyc
+env/
+
+# virtualenv
+.venv/
+venv/
+ENV/
+
+*.egg-info/
+.installed.cfg
+*.egg
+
+sdist/
+dist/
+eggs/
+
+env/
+
+ Unit test / coverage reports
+ htmlcov/
+ .tox/
+ .coverage
+ .coverage.*
+ .cache
+ nosetests.xml
+ coverage.xml
+ *,cover
+ .hypothesis/
+
+ *.log
+
+.DS_Store
