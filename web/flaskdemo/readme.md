@@ -41,7 +41,7 @@ nginx.conf 最后有一句
 $ cd /usr/local/etc/nginx/
 $ mkdir servers
 
-cp location/flask.conf servers/         # copy flask.conf 到servers
+$ cp location/flask.conf servers/        # copy flask.conf 到servers
 ```
 
 ```config
