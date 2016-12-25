@@ -28,6 +28,7 @@ env/
  *,cover
  .hypothesis/
 
+log/
  *.log
 
 .DS_Store
