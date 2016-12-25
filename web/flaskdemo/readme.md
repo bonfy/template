@@ -2,7 +2,7 @@
 
 本demo主要关注于 Flask + peewee + nginx 的Demo
 
-## 准备
+## 配置篇
 
 参照[python web 部署：nginx + gunicorn + supervisor + flask mac 平台](http://www.jianshu.com/p/6dce773cb6b8)
 
@@ -17,6 +17,58 @@ $ pyvenv venv
 $ source venv/bin/activate
 
 $ python3 -m pip install flask
+```
+
+### supervisor配置
+
+```cmd
+$ echo_supervisord_conf > supervisor.conf           # 生成 supervisor 默认配置文件
+$ vim supervisor.conf                               # 修改 supervisor 配置文件，添加 gunicorn 进程管理
+```
+在最后加入：
+```
+[program:app]
+command=/Users/bonfy/Desktop/Github/template/web/flaskdemo/venv/bin/gunicorn -w4 -b0.0.0.0:5000 app:app      ; supervisor启动命令
+directory=/Users/bonfy/Desktop/Github/template/web/flaskdemo                            ; 项目的文件夹路径
+startsecs=0                                                                             ; 启动时间
+stopwaitsecs=0                                                                          ; 终止等待时间
+autostart=false                                                                         ; 是否自动启动
+autorestart=false                                                                       ; 是否自动重启
+stdout_logfile=/Users/bonfy/Desktop/Github/template/web/flaskdemo/log/gunicorn.log      ; log 日志
+stderr_logfile=/Users/bonfy/Desktop/Github/template/web/flaskdemo/log/gunicorn.err
+```
+
+如果要一起加入nginx
+
+```
+[program:nginx]
+;command=/usr/sbin/nginx                          ; Linux
+command=/usr/local/Cellar/nginx/1.10.2_1/bin/nginx
+startsecs=0
+stopwaitsecs=0
+autostart=false
+autorestart=false
+stdout_logfile=/Users/bonfy/Desktop/Github/template/web/flaskdemo/log/nginx.log
+stderr_logfile=/Users/bonfy/Desktop/Github/template/web/flaskdemo/log/nginx.err
+```
+
+如果要激活管理界面
+
+```
+supervisor 还有一个web的管理界面，可以激活。更改下配置
+
+[inet_http_server]         ; inet (TCP) server disabled by default
+port=127.0.0.1:9001        ; (ip_address:port specifier, *:port for all iface)
+username=user              ; (default is no username (open server))
+password=123               ; (default is no password (open server))
+
+[supervisorctl]
+serverurl=unix:///tmp/supervisor.sock ; use a unix:// URL  for a unix socket
+serverurl=http://127.0.0.1:9001       ; use an http:// url to specify an inet socket
+username=user                         ; should be same as http_username if set
+password=123                          ; should be same as http_password if set
+;prompt=mysupervisor                  ; cmd line prompt (default "supervisor")
+;history_file=~/.sc_history           ; use readline history if available
 ```
 
 ### nginx 配置
