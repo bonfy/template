@@ -78,3 +78,7 @@ supervisorctl -c supervisor.conf reload                    # 重新载入 配置
 supervisorctl -c supervisor.conf start [all]|[appname]     # 启动指定/所有 supervisor管理的程序进程
 supervisorctl -c supervisor.conf stop [all]|[appname]      # 关闭指定/所有 supervisor管理的程序进程
 ```
+
+nginx 在supervisor monitor 中永远都是 status: exited; 原因见 [Running (and monitoring) nginx with supervisord](http://serverfault.com/questions/647357/running-and-monitoring-nginx-with-supervisord)
+
+> To ensure that your nginx is running with supervisord you have to set 'daemon off' in your nginx.conf (see also nginx docu at [http://nginx.org/en/docs/ngx_core_module.html#daemon](http://nginx.org/en/docs/ngx_core_module.html#daemon)).
