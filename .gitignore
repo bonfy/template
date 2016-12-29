@@ -29,6 +29,8 @@ env/
  .hypothesis/
 
 log/
- *.log
+*.log
+*.db
+
 
 .DS_Store
